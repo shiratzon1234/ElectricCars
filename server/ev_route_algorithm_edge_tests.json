@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2025-05-26T21:19:12.087524",
+  "totalTests": 5,
+  "tests": [
+    {
+      "id": "ec1",
+      "description": "User far from any pickup point",
+      "origin": {
+        "lat": 31.0,
+        "lng": 35.0
+      },
+      "destination": {
+        "lat": 32.1,
+        "lng": 34.8
+      },
+      "userPreferences": {
+        "allowCarSwitch": true,
+        "maxWaitTime": 15,
+        "carRequirements": null
+      },
+      "expectedResult": "failure",
+      "expectedReason": "No pickup point in range"
+    },
+    {
+      "id": "ec2",
+      "description": "No car with enough battery to reach the destination",
+      "origin": {
+        "lat": 32.05,
+        "lng": 34.77
+      },
+      "destination": {
+        "lat": 32.08,
+        "lng": 34.79
+      },
+      "userPreferences": {
+        "allowCarSwitch": false,
+        "maxWaitTime": 10,
+        "carRequirements": {
+          "minBatteryAmount": 5
+        }
+      },
+      "expectedResult": "failure",
+      "expectedReason": "No suitable car found"
+    },
+    {
+      "id": "ec3",
+      "description": "Requires multiple charging stops within time constraint",
+      "origin": {
+        "lat": 32.02,
+        "lng": 34.77
+      },
+      "destination": {
+        "lat": 32.3,
+        "lng": 34.95
+      },
+      "userPreferences": {
+        "allowCarSwitch": false,
+        "maxWaitTime": 25,
+        "carRequirements": {
+          "minBatteryAmount": 30
+        }
+      },
+      "expectedResult": "success",
+      "expectedReason": "Multiple charging points used within constraints"
+    },
+    {
+      "id": "ec4",
+      "description": "User allows car switch but no cars available at switch point",
+      "origin": {
+        "lat": 32.1,
+        "lng": 34.85
+      },
+      "destination": {
+        "lat": 32.15,
+        "lng": 34.95
+      },
+      "userPreferences": {
+        "allowCarSwitch": true,
+        "maxWaitTime": 5,
+        "carRequirements": {
+          "carType": "mini"
+        }
+      },
+      "expectedResult": "failure",
+      "expectedReason": "No replacement car found at switch point"
+    },
+    {
+      "id": "ec5",
+      "description": "Happy path - direct travel with enough battery",
+      "origin": {
+        "lat": 32.07,
+        "lng": 34.78
+      },
+      "destination": {
+        "lat": 32.08,
+        "lng": 34.8
+      },
+      "userPreferences": {
+        "allowCarSwitch": false,
+        "maxWaitTime": 0,
+        "carRequirements": {
+          "minBatteryAmount": 80,
+          "minPassengers": 2
+        }
+      },
+      "expectedResult": "success",
+      "expectedReason": "Single car has enough battery"
+    }
+  ]
+}
